@@ -2,6 +2,7 @@ package com.educandoweb.course.resources;
 
 import com.educandoweb.course.entities.User;
 import com.educandoweb.course.services.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,5 +35,11 @@ public class UserResource {
         User u = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(u.getId()).toUri();
         return ResponseEntity.created(uri).body(u);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
