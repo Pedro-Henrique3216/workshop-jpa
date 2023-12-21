@@ -87,6 +87,11 @@ public class Order implements Serializable {
         this.payment = payment;
     }
 
+    public Double getTotal(){
+        double n = items.stream().map(OrderItem::getSubTotal).reduce(0.0, Double::sum);
+        return n;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
